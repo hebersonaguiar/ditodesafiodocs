@@ -196,5 +196,14 @@ Pronto, o redis está funcionando:
 
 ![redis](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/redis-k8s.png)
 
-Como mostra na imagem acima, o seviço do redis possui um ip e porta publica, agora iremos criar o aponamento dns [redis.ditochallenge.com](http://redis.ditochallenge.com) utilizando o Google Cloud DNS.
+Como mostra na imagem acima, o seviço do redis possui um ip e porta pública, agora iremos criar o aponamento dns [redis.ditochallenge.com](http://redis.ditochallenge.com) utilizando o Google Cloud DNS.
 ![dns redis](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/redis-dns.png)
+
+Com o redis funcionando, podemos então importar o repositório do [Backend](https://github.com/hebersonaguiar/ditochatbackend), para isso vamos executar o comando abaixo:
+
+```bash
+jx import --url https://github.com/hebersonaguiar/ditochatbackend.git
+```
+
+Importação do repositório do [Backend](https://github.com/hebersonaguiar/ditochatbackend) realizada com suceso:
+![importacao backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/import-backend.png)
