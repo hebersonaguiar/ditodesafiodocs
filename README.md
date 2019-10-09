@@ -157,3 +157,14 @@ O acesso as aplicações criadas são:
 `Username: admin`
 
 `Password: i-HJomkfDA7~byKH429S`
+
+Acessando as aplicações:
+
+* Jenkins X - jenkins.jx.108.59.87.39.nip.io
+![jenkinsx](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/jenkins-access.png)
+
+* Chart Museum - chartmuseum.jx.108.59.87.39.nip.io
+![chat museum](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/chatmuseum-access.png)
+
+* Nexus - nexus.jx.108.59.87.39.nip.io
+![nexus](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/nexus-access.png)
