@@ -173,4 +173,4 @@ Acessando as aplicações:
 ## Importação dos projetos para o Jenkins X
 Antes de importar os projetos para o Jenkins X, é necessário enteder a arquitetura da aplicação, a aplicação [Frontend](https://github.com/hebersonaguiar/ditochatfrontend) conecta na aplicação [Backend](https://github.com/hebersonaguiar/ditochatbackend) pra envio de mensagens, e o [Backend](https://github.com/hebersonaguiar/ditochatbackend) se conecta a um Redis para salvar as mensagens, como mostra a imagem abaixo:
 
-![arquitetura](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/arquitetura-app)
+![arquitetura](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/arquitetura-app.png)
