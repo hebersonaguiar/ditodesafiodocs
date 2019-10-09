@@ -155,4 +155,5 @@ Abaixo segue o passo-a-passo utilizado para criação e configuração do cluste
 O acesso as aplicações criadas são:
 
 `Username: admin`
+
 `Password: i-HJomkfDA7~byKH429S`
