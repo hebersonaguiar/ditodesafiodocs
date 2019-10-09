@@ -129,9 +129,11 @@ Abaixo segue o passo-a-passo utilizado para criação e configuração do cluste
 ![tipo jenkins](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/tipo-jenkins.png)
 
 * Domínio
+
 ![dominio](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/dominio-jx.png)
 
 * Usuário do GitHub
+
 ![usuario do github](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/gitusername-jx.png)
 
 * Criação de token de acesso do Github no Jenkins x
