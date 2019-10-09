@@ -78,7 +78,7 @@ Nesse projeto a toda a criação do cluster e as integrações do Kubernetes com
 jx create cluster gke
 ```
 
-porém, antes da criação do cluster, é necessário realizar as instalações e configurações do pré-requisitos, que são os jx, helm, kubectl e gcloud, segue abaixo:
+porém, antes da criação do cluster, é necessário realizar as instalações e configurações dos pré-requisitos, que são os jx, helm, kubectl e gcloud, segue abaixo:
 
 * Jenkins X
 ```bash
@@ -95,14 +95,15 @@ exec -l $SHELL
 ```
 
 * Helm e Kubectl
+
 Para instalar o helm e kubectl, pode-se usar o próprio jx:
 ```bash
 jx install dependencies
 ```
 Ao executar o comando acima, o jx irá solicitar que seja escolhido as dependências que deseja instalar, basta escolher apertando a barra de espaço e depois enter par iniciar a instalação, como mostra a imagem abaixo:
 
-![jx install dependencies kubectl helm]()
-![jx install dependencies kubectl helm]()
+![jx install dependencies kubectl helm](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/install-dependencies.png)
+![jx install dependencies kubectl helm](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/install-dependencies-s.png)
 
 
 No momento da instalação, são requisitdas diversas informações para criar o cluster e
