@@ -72,13 +72,7 @@ o detalhamento da criação está no tópico  do [Jenkins X](https://github.com/
 ## Jenkins X
 O Jenkins X possui os conceitos de Aplicativos e Ambientes. Você não instala o Jenkins diretamente para usar o Jenkins X, pois o Jenkins é incorporado como um mecanismo de pipeline como parte da instalação.
 
-Nesse projeto a toda a criação do cluster e as integrações do Kubernetes com Jenkins X, Chart Museum e Nexus, foi toda realizada utilizando o comando abaixo:
-
-```bash
-jx create cluster gke
-```
-
-porém, antes da criação do cluster, é necessário realizar as instalações e configurações dos pré-requisitos, que são os jx, helm, kubectl e gcloud, segue abaixo:
+Nesse projeto a toda a criação do cluster e as integrações do Kubernetes com Jenkins X, Chart Museum e Nexus, foi toda realizada utilizando o Jenkins X, porém antes da criação do cluster, é necessário realizar as instalações e configurações dos pré-requisitos, que são os jx, helm, kubectl e gcloud, segue abaixo:
 
 * Jenkins X
 ```bash
@@ -106,4 +100,56 @@ Ao executar o comando acima, o jx irá solicitar que seja escolhido as dependên
 ![jx install dependencies kubectl helm](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/install-dependencies-s.png)
 
 
-No momento da instalação, são requisitdas diversas informações para criar o cluster e
+Realizado a instlação dos pré-requisitos, chegou a hora de criar o cluster, no momento da instalação, são requisitdas diversas informações relevantes para criação do cluster como, autenticação no GCP com uma conta válida, zona de instalação do cluster, api key do github, tipo de instalação do Jenkins X, etc.
+
+Para iniciar basta executar o comando abaixo:
+
+```bash
+jx create cluster gke
+```
+
+Abaixo segue o passo-a-passo utilizado para criação e configuração do cluster:
+
+* Autenticação no GCP, o Jenkins X gera um link de acesso para autetnticação, basta copiar e colar em qualquer browser:
+![autenticação gcp](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/solicitacao-de-acesso.png)
+
+* Seleção do projeto para criação do cluster
+![seleção do projeto gcp](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/projeto-escolha.png)
+
+* Seleção da zona para criação do cluster
+![selecao da zona gcp](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/zona.png)
+
+* Criação do Cluster
+![criação do cluster gcp](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/criando-cluster.png)
+
+* Cluster Criado
+![cluster criado gcp](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/cluster-criado.png)
+
+* Seleção do tipo de instalação do Jenkins X
+![tipo jenkins](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/tipo-jenkins.png)
+
+* Domínio
+![dominio](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/dominio.png)
+
+* Usuário do GitHub
+![usuario do github](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/gitusername-jx.png)
+
+* Criação de token de acesso do Github no Jenkins x
+![token github jenkinsx](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/api-token-jx.png)
+
+* Criação de token para uso do pipeline
+![token github pipeline](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/api-token-jx-cicd.png)
+
+* Criação de repositórios para deploy das aplicações
+![criacao repos](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/criando-repos.png)
+![criacao repos 2](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/criando-repos-git.png)
+
+* Jenkins, Chart Museum, Nexus, Docker Registry criados com sucesso
+![instalacao concluida](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/jenkins-instalado.png)
+
+* JAcesso às aplicações criadas (Ingress)
+![instalacao concluida](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/ingress-criado.png)
+
+O acesso as aplicações criadas são:
+`Username: admin`
+`Password: i-HJomkfDA7~byKH429S`
