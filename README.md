@@ -1,6 +1,7 @@
 Esse reposítório foi criado para servir de complementação à documetação dos projetos do Dito Desafio, que são os repositórios abaixo:
 
-[Dito Chat Backend](https://github.com/hebersonaguiar/ditochatbackend) 
+[Dito Chat Backend](https://github.com/hebersonaguiar/ditochatbackend)
+
 [Dito Chat Frontend](https://github.com/hebersonaguiar/ditochatfrontend)
 
 Os repositórios infomrados acima, possuem suas prórprias documentações referente ao seu uso local e em um ambiente de cluster kubernetes.
@@ -9,17 +10,28 @@ A proposta desse projeto é de em base ao repositório [Dito Chat](https://githu
 
 Para esse desafio foram utilizados as seguintes tecnologias:
 	* [Docker](https://github.com/hebersonaguiar/ditodesafiodocs#docker)
+
 	* [Google Cloud Plataform](https://github.com/hebersonaguiar/ditodesafiodocs#google-cloud-plataform)
+
 	* [Google Kubernetes Engine](https://github.com/hebersonaguiar/ditodesafiodocs#kubernetes)
+
 	* [Jenkins X](https://github.com/hebersonaguiar/ditodesafiodocs#jenkins-x)
+
 	* [Helm Chart](https://github.com/hebersonaguiar/ditodesafiodocs#helm-chart)
+
 	* [Chart Museum](https://github.com/hebersonaguiar/ditodesafiodocs#chart-museum)
+
 	* [GitHub](https://github.com/hebersonaguiar/ditodesafiodocs)
+
 	* [Skaffold](https://github.com/hebersonaguiar/ditodesafiodocs#skaffold)
+
 	* [Nexus](https://github.com/hebersonaguiar/ditodesafiodocs#nexus)
 	* [Prometheus](https://github.com/hebersonaguiar/ditodesafiodocs#prometheus)
+
 	* [Grafana](https://github.com/hebersonaguiar/ditodesafiodocs#grafana)
+
 	* [ELK](https://github.com/hebersonaguiar/ditodesafiodocs#elk)
+	
 
 Todos as tecnologias informadas acima serão descritas e detalhadas nesse documento, bem como sua integrações e uso.
 
