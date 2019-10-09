@@ -6,32 +6,34 @@ Esse reposítório foi criado para servir de complementação à documetação d
 
 Os repositórios infomrados acima, possuem suas prórprias documentações referente ao seu uso local e em um ambiente de cluster kubernetes.
 
+## A proposta
 A proposta desse projeto é de em base ao repositório [Dito Chat](https://github.com/ditointernet/dito-chat) que foi repassado pela Dito, colocar em produção, prezando pela utilização de ferramentas de deploy contínuo, grantindo a alta disponibilidade e manutenabilidade(monitoramento e logs), para isso diversos trabalhos foram realizado, pois o repositório [Dito Chat](https://github.com/ditointernet/dito-chat) possuem apenas o código fonte da aplicação e uma breve explicação de como deve ser utilizada.
 
 Para esse desafio foram utilizados as seguintes tecnologias:
-	* [Docker](https://github.com/hebersonaguiar/ditodesafiodocs#docker)
 
-	* [Google Cloud Plataform](https://github.com/hebersonaguiar/ditodesafiodocs#google-cloud-plataform)
+[Docker](https://github.com/hebersonaguiar/ditodesafiodocs#docker)
 
-	* [Google Kubernetes Engine](https://github.com/hebersonaguiar/ditodesafiodocs#kubernetes)
+[Google Cloud Plataform](https://github.com/hebersonaguiar/ditodesafiodocs#google-cloud-plataform)
 
-	* [Jenkins X](https://github.com/hebersonaguiar/ditodesafiodocs#jenkins-x)
+[Google Kubernetes Engine](https://github.com/hebersonaguiar/ditodesafiodocs#kubernetes)
 
-	* [Helm Chart](https://github.com/hebersonaguiar/ditodesafiodocs#helm-chart)
+[Jenkins X](https://github.com/hebersonaguiar/ditodesafiodocs#jenkins-x)
 
-	* [Chart Museum](https://github.com/hebersonaguiar/ditodesafiodocs#chart-museum)
+[Helm Chart](https://github.com/hebersonaguiar/ditodesafiodocs#helm-chart)
 
-	* [GitHub](https://github.com/hebersonaguiar/ditodesafiodocs)
+[Chart Museum](https://github.com/hebersonaguiar/ditodesafiodocs#chart-museum)
 
-	* [Skaffold](https://github.com/hebersonaguiar/ditodesafiodocs#skaffold)
+[GitHub](https://github.com/hebersonaguiar/ditodesafiodocs)
 
-	* [Nexus](https://github.com/hebersonaguiar/ditodesafiodocs#nexus)
-	* [Prometheus](https://github.com/hebersonaguiar/ditodesafiodocs#prometheus)
+[Skaffold](https://github.com/hebersonaguiar/ditodesafiodocs#skaffold)
 
-	* [Grafana](https://github.com/hebersonaguiar/ditodesafiodocs#grafana)
+[Nexus](https://github.com/hebersonaguiar/ditodesafiodocs#nexus)
+[Prometheus](https://github.com/hebersonaguiar/ditodesafiodocs#prometheus)
 
-	* [ELK](https://github.com/hebersonaguiar/ditodesafiodocs#elk)
-	
+[Grafana](https://github.com/hebersonaguiar/ditodesafiodocs#grafana)
+
+[ELK](https://github.com/hebersonaguiar/ditodesafiodocs#elk)
+
 
 Todos as tecnologias informadas acima serão descritas e detalhadas nesse documento, bem como sua integrações e uso.
 
