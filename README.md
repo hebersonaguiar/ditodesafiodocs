@@ -170,7 +170,7 @@ Acessando as aplicações:
 ![nexus](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/nexus-access.png)
 
 
-## Importação dos projetos para o Jenkins X
+## Importação dos repositórios para o Jenkins X
 Antes de importar os projetos para o Jenkins X, é necessário enteder a arquitetura da aplicação, a aplicação [Frontend](https://github.com/hebersonaguiar/ditochatfrontend) conecta na aplicação [Backend](https://github.com/hebersonaguiar/ditochatbackend) pra envio de mensagens, e o [Backend](https://github.com/hebersonaguiar/ditochatbackend) se conecta a um Redis para salvar as mensagens, como mostra a imagem abaixo:
 
 ![arquitetura](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/arquitetura-app.png)
@@ -193,6 +193,7 @@ kubectl expose --name redis deployment redis --target-port=6379 --type=LoadBalan
 ```
 
 Pronto, o redis está funcionando:
+
 ![redis](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/redis-k8s.png)
 
 Como mostra na imagem acima, o seviço do redis possui um ip e porta publica, agora iremos criar o aponamento dns [redis.ditochallenge.com](http://redis.ditochallenge.com) utilizando o Google Cloud DNS.
