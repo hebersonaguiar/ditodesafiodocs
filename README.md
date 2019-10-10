@@ -46,6 +46,8 @@ Vale resaltar que, quando o commit é realizado, uma tag é criada e essa mesma 
 
 Outro fato importante é, as informações de container como uso de memória, cpu e logs, são enviados para o Grafana e Kibana.
 
+## Docker
+O Docker é uma plataforma para desenvolvedores e administradores de sistemas para desenvolver, enviar e executar aplicativos. O Docker permite montar aplicativos rapidamente a partir de componentes e elimina o atrito que pode ocorrer no envio do código. O Docker permite que seu código seja testado e implantado na produção o mais rápido possível. Originalmente essa aplicação não foi desenvolvida para docker, porém sua criação é simples e rápido.
 
 ## Google Cloud Plataform
 Google Cloud Platform também conhecida como GCP é uma suíte de cloud oferecida pelo Google, funcionando na mesma infraestrutura que a empresa usa para seus produtos dirigidos aos usuários, dentre eles o Buscador Google e o Youtube.
@@ -68,6 +70,14 @@ jx create cluster gke
 ```
 
 o detalhamento da criação está no tópico  do [Jenkins X](https://github.com/hebersonaguiar/ditodesafiodocs#jenkins-x)
+
+## Kuberntes
+
+Kubernetes ou como é conhecido também K8s é um produto Open Source utilizado para automatizar a implantação, o dimensionamento e o gerenciamento de aplicativos em contêiner no qual agrupa contêineres que compõem uma aplicação em unidades lógicas para facilitar o gerenciamento e a descoberta de serviço
+
+Nesse projeto foi utilizado o kubernetes na versão `v1.13.7-gke.24`, o cluster foi criado na GCP, o Kubernetes Engine não é voltado apenas para aplicativos sem estado. Com ele, é possível incluir armazenamento permanente e até mesmo executar um banco de dados no seu cluster.
+
+A instação do cluster kubernetes foi realizada pelo Jenkins X, no qual possui uma forte integração com a GCP, criando um ambinete de CI/CD de forma rápida e fácil.
 
 ## Jenkins X
 O Jenkins X possui os conceitos de Aplicativos e Ambientes. Você não instala o Jenkins diretamente para usar o Jenkins X, pois o Jenkins é incorporado como um mecanismo de pipeline como parte da instalação.
@@ -233,19 +243,19 @@ Após a importação dos repositórios, é dado início ao CI - Continuous Integ
 ## Fluxo CI/CD
 
 ## Helm Chart
-O Helm é um gerenciador de aplicações Kubernetes onde cria, versiona, compartilha e pública os artefatos. Com ele é possível desenvolver templates dos arquivos YAML e durante a instalaçãoo de cada aplicação personalizar os parâmentros com facilidade. Nesse projeto o helm chart foi utilizado nos repositórios das aplicações [Frontend](https://github.com/hebersonaguiar/ditochatfrontend/tree/master/charts/ditochatfrontend) e [Backend](https://github.com/hebersonaguiar/ditochatbackend/tree/master/charts/ditochatbackend), no qual foi emcapsulado todos os arquivos necessários para a implantação das aplicações, como deployment, service, persistente volume, etc, um template padrão de uma aplicação é seguinte:
+O Helm é um gerenciador de aplicações Kubernetes onde cria, versiona, compartilha e pública os artefatos. Com ele é possível desenvolver templates dos arquivos YAML e durante a instalação de cada aplicação personalizar os parâmentros com facilidade. Nesse projeto o helm chart foi utilizado nos repositórios das aplicações [Frontend](https://github.com/hebersonaguiar/ditochatfrontend/tree/master/charts/ditochatfrontend) e [Backend](https://github.com/hebersonaguiar/ditochatbackend/tree/master/charts/ditochatbackend), no qual foi emcapsulado todos os arquivos necessários para a implantação das aplicações, como deployment, service, persistente volume, etc, um template padrão de uma aplicação é a seguinte:
 
 ![helm chart template](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/helm-chart-temp.png)
 
 Dentro do diretório, existe um arquivo chamado `values.yaml`, muito importante dentro de um helm chart, ele é o resposável por informar para os arquivios YAML quais os valores que serão alterados que podem ser por exemplo: quantidade de replicas, portas de acesso, tipo de deploy, tamanho do volume a ser utilizado, etc.
 
-Nesse projeto, o helm chart não foi criado pelo Jenkins X em sua importação, como informado nos tópicos anteriores, porém caso seja necessário basta remover a tag `--no-draft` no momento da instalação e o Jenkins X se encarrega de criar, entrentanto tenha cuidado, os valores padroes criados podem ser diferente do que a aplicação requer. 
+Nesse projeto, o helm chart não foi criado pelo Jenkins X em sua importação, como informado nos tópicos anteriores, porém caso seja necessário basta remover a tag `--no-draft` no momento da instalação e o Jenkins X se encarrega de criar, entrentanto tenha cuidado, os valores padrões criados podem ser diferente do que a aplicação requer. 
 
 
 ## Chart Museum
 O ChartMuseum é um servidor de repositório de Helm Chart de código aberto escrito em Go (Golang), com suporte para back-end de armazenamento em nuvem, incluindo Google Cloud Storage, Amazon S3, Microsoft Azure Blob Storage, Alibaba Cloud OSS Storage e Openstack Object Storage.
 
-Nesse projeto o Chart Museum foi instalado no momento da instalção e configuração do Jenkins X e o Cluster. Ele é essencial para o funcionamento do fluxo CI/CD, onde todo encapsulamento da aplicação fica guardada e versionada, podendo ser utilizada a qualquer momento. O Chart Museum usa uma api para sua manipulação para salvar, baixa e visualizar os chart, como mostra a imagem abaixo:
+Nesse projeto o Chart Museum foi instalado no momento da instalção e configuração do Jenkins X e o Cluster. Ele é essencial para o funcionamento do fluxo CI/CD, onde todo encapsulamento da aplicação fica salva e versionada, podendo ser utilizada a qualquer momento. O Chart Museum usa uma api para sua manipulação para salvar, baixa e visualizar os chart, como mostra a imagem abaixo:
 
 ![importacao frontend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/chart-museum.png)
 
