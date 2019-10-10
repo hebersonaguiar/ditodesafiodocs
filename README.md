@@ -323,3 +323,61 @@ Dentro da pasta `conf/grafana/` possui alguns arquivos do tipo `.json` que são 
 Agora para visualizar, basta ir em Home, clicar no dashboard "Kubernetes Cluster - Monitoramento" e visualizar os dados, como mostra a imagem abaixo:
 
 ![grafana](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/grafana-monitoring.png)
+
+
+## ELK
+ELK signifca ELasticsearch, Logstash e Kíbana, um conjunto de aplicações que nos ajudam a ter uma melhor visialização dos logs de ambientes, em nosso projeto iremos configurar essas aplicações para que possamos ter os logs de nosso cluster.
+Na instalação do ELK não iremos utilizar o Helm Chart, vamos fazer urilizando o próprio Kubernetes, todos as configurações que iremos utilizar aqui estão em `conf/k8s/elk`.
+
+* Elasticssearch
+O Elasticsearch é um mecanismo de pesquisa e análise de código aberto distribuído para todos os tipos de dados, incluindo texto, numérico, geoespacial, estruturado e não estruturado.
+Primiero passo para instalação é a criação do deployment, no qual irá ser criado um pod do elasticsearch, para isso execute o comando abaixo:
+
+```bash
+kubectl create -f deployment-elastic.yaml
+```
+
+Após executar o comando, aguarde enquanto o pod é iniciado, após sua inicialização precisamos criar um serviço para o pod do elasticsearch, isso fará que o Logstash possa se comunicar com ele, para isso execute o comando abaixo:
+
+```bash
+kubectl create -f service-elastic.yaml
+```
+
+* Kibana
+O Kibana permite visualizar os dados do Elasticsearch  para você poder fazer qualquer coisa, desde rastrear a carga de consultas até entender a maneira como as solicitações fluem pelos aplicativos.
+O Kibana será nosso frontend dos logs, ou seja, iremos poder ver os logs, gráficos de logs de nosso cluster a partir dele, para sua instalação iremos executar os seguintes comandos:
+
+```bash
+kubectl create -f deployment-kibana.yaml
+```
+
+Após executar o comando, aguarde enquanto o pod é iniciado, após sua inicialização precisamos criar um serviço para o pod do kibana, execute o comando abaixo:
+
+```bash
+kubectl create -f service-kibana.yaml
+```
+
+Após a criação do serviço do kibana, iremos agora criar um ingress, o ingress irá nos permitir acessar o painel do kibana, execute o comando abaixo:
+
+```bash
+kubectl create -f ingress-kibana.yaml
+```
+
+* Logstash
+O Logstash é um pipeline de processamento de dados open source do lado do servidor que faz a ingestão de dados a partir de inúmeras fontes simultaneamente, transforma-os e envia-os para o seu "esconderijo" favorito.
+Para esse projeto iremos utilizar o Fluentd como Logstash, ele vai se conectar ao elasticsearch e coletar os dados, para isso iremos executar os comandos abaixo:
+
+O comando abaixo cria umm RBAC (role-based access control), um controle de acesso para o Fluentd possa acessar corretamente todos os componentes do cluster.
+
+```bash
+kubectl create -f fluentd-rbac.yaml
+```
+
+Criado as permissões, agora podemos criar um DaemonSet, diferente do deployment, o DaemonSet fará com que todos os meu nós, obrigatoriamente contenha um pod do Fluentd, isso é importante pois todos os nós precisam de um mecanismo que possa coletar os dados, segue abaixo o comando:
+
+```bash
+kubectl create -f fluentd-daemonset.yaml
+```
+Pronto, agora basta acessar o [Kibana](http://kibana.ditochallenge.com), configurar os index do logstash e pronto, é só criar os devidos gráficos e pesquisas. 
+
+![elk](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/kibana-access.png)
