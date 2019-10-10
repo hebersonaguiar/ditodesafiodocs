@@ -227,5 +227,30 @@ jx import --no-draft --url https://github.com/hebersonaguiar/ditochatfrontend.gi
 Importação do repositório do [Frontend](https://github.com/hebersonaguiar/ditochatfrontend) realizada com suceso:
 ![importacao frontend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/import-frontend.png)
 
-Após a importação dos repositórios, é dado início ao CI - Continuous Integration, nesse mommento  é realizado os build e push da imagem e do chart, para suas respecitvas aplicações Docker Registry e Chart Museum, feito isso a imagem é promovida para o ambiente de deploy Kubernetes, nesse mommento o repositóio de CD - Continuous Delivery é acionado após uma solicitação de pull request, realizado o pull request o deploy é realizado com a image e chart criado anteriormente.
+Após a importação dos repositórios, é dado início ao CI - Continuous Integration, nesse mommento  é realizado o build e push da imagem e do chart, para suas respecitvas aplicações Docker Registry e Chart Museum, feito isso a imagem é promovida para o ambiente de deploy Kubernetes, nesse mommento o repositóio de CD - Continuous Delivery é acionado após uma solicitação de pull request, realizado o pull request o deploy é realizado com a image e chart criado anteriormente.
 
+
+## Fluxo CI/CD
+
+## Prometheus
+O Prometheus é um kit de ferramentas de monitoramento e alerta de sistemas de código aberto criado originalmente no SoundCloud. Desde a sua criação em 2012, muitas empresas e organizações adotaram o Prometheus, e o projeto possui uma comunidade de desenvolvedores e usuários muito ativa. Agora é um projeto de código aberto independente e mantido independentemente de qualquer empresa. Para enfatizar isso e esclarecer a estrutura de governança do projeto.
+
+Iremos utilizar nesse projeto o prometheus para coletar dados do cluster kubernetes bem como as aplicações, para sua instalação iremos utilizar o helm chart, por ser uma aplicação de terceiro e também por está mantida sua versão estável no repositório de charts no github, para sua instalação iremos utilizar o comando abaixo:
+
+* Criação de um namespace para o monitoramento e log 
+
+```bash
+kubectl create namespace monitoring-log
+```
+
+* Instalação do prometheus
+
+```bash
+helm install --name prometheus \
+	--set server.persistentVolume.enabled=false,alertmanager.persistentVolume.enabled=false \
+	--namespace monitoring-log \
+	stable/prometheus
+```
+* Saida da instalação 
+```bash
+``` 
