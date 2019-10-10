@@ -238,6 +238,29 @@ Após a importação dos repositórios, é dado início ao CI - Continuous Integ
 
 ## Fluxo CI/CD
 
+Como mostrado acima, temos em execução o Redis e as aplicações importadas e as devidas alterações realizadas para o Jenkins X, agora iremos realizar a integração contínua CI e o deploy contínuo CD, o primeiro deploy a ser realizado é o do [backend](https://github.com/hebersonaguiar/ditochatbackend), ele irá se conectar ao `redis.ditochallenge.com` e irá permitir o envio das mensagens do [frontend](https://github.com/hebersonaguiar/ditochatfrontend) `frontend.ditochallenge.com`
+
+Para iniciar o fluxo, deve-se realizar um commit, com isso o webhook aciona o job [ditochatbackend](http://jenkins.jx.108.59.87.39.nip.io/job/hebersonaguiar/job/ditochatbackend/job/master/), responsável pela integração das ferramentas que consiste em realiar o build e push da imagem e chart com a nova tag criada pra o [Docker Registry](docker-registry.jx.108.59.87.39.nip.io) e [Chart Museum](chartmuseum.jx.108.59.87.39.nip.io), alteração dos das configurações necessárias:
+
+![ci-backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/ci-backend.png)
+
+No final do job antes de finalizar é solicitado um pull request para o repositório de deploy [CD](https://github.com/hebersonaguiar/environment-jx-chatdito), após o pull request o deploy é realizado, nesse repositório contém configurações que são alteradas para que seja realizado o deploy de forma correta no ambiente correto nesse projeto no kubernetes no namespace `chatdito`.
+
+![cd-backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/cd-backend.png)
+
+Após o deploy finalizado, ao acessar o namespace `chatdito` irão ter os pods criados, e serviços:
+
+![deploy backend success](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/deploy-backend-success.png)
+
+Para finalizar esse deploy deve-se então criar o apontamento dns para a aplicação:
+
+![dns backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/dns-backend.png)
+
+
+Deploy do backend finalizado, agora iremos para o [Frontend](https://github.com/hebersonaguiar/ditochatfrontend)
+
+
+
 ## Helm Chart
 O Helm é um gerenciador de aplicações Kubernetes onde cria, versiona, compartilha e pública os artefatos. Com ele é possível desenvolver templates dos arquivos YAML e durante a instalação de cada aplicação personalizar os parâmentros com facilidade. Nesse projeto o helm chart foi utilizado nos repositórios das aplicações [Frontend](https://github.com/hebersonaguiar/ditochatfrontend/tree/master/charts/ditochatfrontend) e [Backend](https://github.com/hebersonaguiar/ditochatbackend/tree/master/charts/ditochatbackend), no qual foi emcapsulado todos os arquivos necessários para a implantação das aplicações, como deployment, service, persistente volume, etc, um template padrão de uma aplicação é a seguinte:
 
