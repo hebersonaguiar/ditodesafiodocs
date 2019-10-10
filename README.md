@@ -15,7 +15,7 @@ Para esse desafio foram utilizados as seguintes tecnologias:
 
 [Google Cloud Plataform](https://github.com/hebersonaguiar/ditodesafiodocs#google-cloud-plataform)
 
-[Google Kubernetes Engine](https://github.com/hebersonaguiar/ditodesafiodocs#kubernetes)
+[Kubernetes Engine](https://github.com/hebersonaguiar/ditodesafiodocs#kubernetes)
 
 [Jenkins X](https://github.com/hebersonaguiar/ditodesafiodocs#jenkins-x)
 
@@ -23,7 +23,7 @@ Para esse desafio foram utilizados as seguintes tecnologias:
 
 [Chart Museum](https://github.com/hebersonaguiar/ditodesafiodocs#chart-museum)
 
-[GitHub](https://github.com/hebersonaguiar/ditodesafiodocs)
+[GitHub](https://github.com/hebersonaguiar/ditodesafiodocs#github)
 
 [Skaffold](https://github.com/hebersonaguiar/ditodesafiodocs#skaffold)
 
@@ -71,7 +71,7 @@ jx create cluster gke
 
 o detalhamento da criação está no tópico  do [Jenkins X](https://github.com/hebersonaguiar/ditodesafiodocs#jenkins-x)
 
-## Kuberntes
+## Kubernetes
 
 Kubernetes ou como é conhecido também K8s é um produto Open Source utilizado para automatizar a implantação, o dimensionamento e o gerenciamento de aplicativos em contêiner no qual agrupa contêineres que compõem uma aplicação em unidades lógicas para facilitar o gerenciamento e a descoberta de serviço
 
