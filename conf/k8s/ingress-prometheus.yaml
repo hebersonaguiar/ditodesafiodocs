@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: prometheus
+  namespace: monitoring-log
+spec:
+  rules:
+  - host: prometheus.ditochallenge.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: prometheus-server
+          servicePort: 80

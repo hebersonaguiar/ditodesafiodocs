@@ -251,6 +251,73 @@ helm install --name prometheus \
 	--namespace monitoring-log \
 	stable/prometheus
 ```
-* Saida da instalação 
+* Saída da instalação 
 ```bash
+NAME:   prometheus
+LAST DEPLOYED: Wed Oct  9 23:30:58 2019
+NAMESPACE: monitoring-log
+STATUS: DEPLOYED
+
+RESOURCES:
+==> v1/ConfigMap
+NAME                     DATA  AGE
+prometheus-alertmanager  1     2s
+prometheus-server        3     2s
+
+==> v1/Pod(related)
+NAME                                            READY  STATUS             RESTARTS  AGE
+prometheus-alertmanager-689d9c4fd4-d9jqw        0/2    ContainerCreating  0         1s
+prometheus-kube-state-metrics-69df8f55c4-dwqgx  0/1    ContainerCreating  0         1s
+prometheus-node-exporter-fz8sg                  0/1    ContainerCreating  0         1s
+prometheus-node-exporter-qg4l5                  0/1    ContainerCreating  0         1s
+prometheus-node-exporter-rwk7v                  0/1    ContainerCreating  0         1s
+prometheus-pushgateway-8556bc9974-6fjkh         0/1    ContainerCreating  0         1s
+prometheus-server-d4799b8d8-tdz62               0/2    ContainerCreating  0         1s
+
+==> v1/Service
+NAME                           TYPE       CLUSTER-IP     EXTERNAL-IP  PORT(S)   AGE
+prometheus-alertmanager        ClusterIP  10.31.249.96   <none>       80/TCP    2s
+prometheus-kube-state-metrics  ClusterIP  None           <none>       80/TCP    2s
+prometheus-node-exporter       ClusterIP  None           <none>       9100/TCP  2s
+prometheus-pushgateway         ClusterIP  10.31.244.211  <none>       9091/TCP  2s
+prometheus-server              ClusterIP  10.31.252.23   <none>       80/TCP    2s
+
+==> v1/ServiceAccount
+NAME                           SECRETS  AGE
+prometheus-alertmanager        1        2s
+prometheus-kube-state-metrics  1        2s
+prometheus-node-exporter       1        2s
+prometheus-pushgateway         1        2s
+prometheus-server              1        2s
+
+==> v1beta1/ClusterRole
+NAME                           AGE
+prometheus-alertmanager        2s
+prometheus-kube-state-metrics  2s
+prometheus-pushgateway         2s
+prometheus-server              2s
+
+==> v1beta1/ClusterRoleBinding
+NAME                           AGE
+prometheus-alertmanager        2s
+prometheus-kube-state-metrics  2s
+prometheus-pushgateway         2s
+prometheus-server              2s
+
+==> v1beta1/DaemonSet
+NAME                      DESIRED  CURRENT  READY  UP-TO-DATE  AVAILABLE  NODE SELECTOR  AGE
+prometheus-node-exporter  3        3        0      3           0          <none>         2s
+
+==> v1beta1/Deployment
+NAME                           READY  UP-TO-DATE  AVAILABLE  AGE
+prometheus-alertmanager        0/1    1           0          2s
+prometheus-kube-state-metrics  0/1    1           0          2s
+prometheus-pushgateway         0/1    1           0          2s
+prometheus-server              0/1    1           0          2s
 ``` 
+Após todos os serviços estarem funcionando, será necessário criar um ingress para o acesso externo, para isso iremos utilizar o comando abaixo:
+
+```bash
+kubectl create -f ingress-prometheus.yaml
+```
+O arquivo de configuação do ingress encontra-se em conf/k8s/
