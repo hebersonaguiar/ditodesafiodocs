@@ -320,4 +320,10 @@ Após todos os serviços estarem funcionando, será necessário criar um ingress
 ```bash
 kubectl create -f ingress-prometheus.yaml
 ```
-O arquivo de configuação do ingress encontra-se em conf/k8s/
+O arquivo de configuação do ingress encontra-se em `conf/k8s/`
+
+Prometheus em execução:
+![prometheus](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/prometheus.png)
+
+
+## Grafana
