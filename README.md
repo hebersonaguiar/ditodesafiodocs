@@ -156,7 +156,7 @@ Abaixo segue o passo-a-passo utilizado para criação e configuração do cluste
 ![criacao repos](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/criando-repos.png)
 ![criacao repos 2](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/criando-repos-git.png)
 
-* Jenkins, Chart Museum, Nexus, Docker Registry criados com sucesso
+* Jenkins, Chart Museum, Docker Registry criados com sucesso
 ![instalacao concluida](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/jenkins-instalado.png)
 
 * JAcesso às aplicações criadas (Ingress)
@@ -175,9 +175,6 @@ Acessando as aplicações:
 
 * Chart Museum - [chartmuseum.jx.108.59.87.39.nip.io](http://chartmuseum.jx.108.59.87.39.nip.io)
 ![chat museum](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/chatmuseum-access.png)
-
-* Nexus - [nexus.jx.108.59.87.39.nip.io](http://nexus.jx.108.59.87.39.nip.io)
-![nexus](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/nexus-access.png)
 
 
 ## Importação dos repositórios para o Jenkins X
@@ -209,13 +206,9 @@ Pronto, o redis está funcionando:
 Como mostra na imagem acima, o seviço do redis possui um ip e porta pública, agora iremos criar o aponamento dns [redis.ditochallenge.com](http://redis.ditochallenge.com) utilizando o Google Cloud DNS.
 ![dns redis](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/redis-dns.png)
 
-Outra configuração importante a ser feita é a ciação do configmap da aplicação, no qual será informado as variáveis de conexão com o redis e o frontend:
+Nota: na aplicação é necessário informar alguns dados importantes para o funcionamento, que é a origem da conexão de envio das mensagens, ou seja, o [frontend](https://github.com/hebersonaguiar/ditochatfrontend) e o redis, que é o responsável por salvar as mensagens. Para esse projeto foi criado e configurado os domínios  `frontend.ditochallenge.com` e `redis.ditochallenge.com`, eles são informados no código da aplicação em `main.go`.
 
-```bash
-kubectl create configmap chat-backend-values --from-literal ALLOWED_ORIGIN='http://frontend.ditochallenge.com:3000' --from-literal REDIS_ADDR='redis.ditochallenge.com:6379' -n chatdito
-```
-
-Com o redis funcionando e o configmap criado podemos então importar o repositório do [Backend](https://github.com/hebersonaguiar/ditochatbackend), para isso vamos executar o comando abaixo:
+Com o redis funcionando podemos importar o repositório do [Backend](https://github.com/hebersonaguiar/ditochatbackend), para isso vamos executar o comando abaixo:
 
 ```bash
 jx import --no-draft --url https://github.com/hebersonaguiar/ditochatbackend.git
