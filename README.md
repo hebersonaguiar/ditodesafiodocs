@@ -269,7 +269,7 @@ Grafana é uma suíte de análise e visualização métrica de código aberto. �
 
 Nesse projeto iremos istalar o grafana e configurá-lo para conectar-se ao prometheus e configurar dashboards de métricas do cluster e as aplicações, para isso iremos utilizar o helm chart,  para sua instalação iremos utilizar o comando abaixo:
 
-* Criação de um namespace para o monitoramento e log (caso nao exista ou deseja criar em outro)
+* Criação de um namespace para o monitoramento e log (caso não exista ou deseja criar em outro)
 
 ```bash
 kubectl create namespace monitoring-log
@@ -317,4 +317,5 @@ A criação da conexão do grafana com o prometheus é em Datasource > Prometheu
 Pronto, é só clicar em testar e salvar.
  
 
-Importação de dashboards
+* Importação de dashboards
+Dentro da pasta `conf/grafana/` possui alguns arquivos do tipo `.json` que são os dashboards que iremos utilizar, no qual mostra todas as infomrações do cluter, como, uso de memória, CPU, disco, etc, são métricas do cluster e dos contêiners. A importação de um dashboard é bem simples, no canto superior esquerdo, possui um ícone com o nome home, ao clicar será aberto um modal com algumas informações, entre elas a `Import Dashboard`, ao clicar uma nova página é aberta e algumas informações são solicitadas, que são como que o dashboard vai ser importado, possui três formas, Upload de um arquivo `.json`, o ID de um dashboard público ou colar o conteúdo de um arquivo `.json`, nesse caso, como temos um dashboard customizado iremos colar o contéudo do nosso arquivo `.json`, feito isso basta apenas clicar em load.
