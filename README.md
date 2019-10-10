@@ -319,3 +319,7 @@ Pronto, é só clicar em testar e salvar.
 
 * Importação de dashboards
 Dentro da pasta `conf/grafana/` possui alguns arquivos do tipo `.json` que são os dashboards que iremos utilizar, no qual mostra todas as infomrações do cluter, como, uso de memória, CPU, disco, etc, são métricas do cluster e dos contêiners. A importação de um dashboard é bem simples, no canto superior esquerdo, possui um ícone com o nome home, ao clicar será aberto um modal com algumas informações, entre elas a `Import Dashboard`, ao clicar uma nova página é aberta e algumas informações são solicitadas, que são como que o dashboard vai ser importado, possui três formas, Upload de um arquivo `.json`, o ID de um dashboard público ou colar o conteúdo de um arquivo `.json`, nesse caso, como temos um dashboard customizado iremos colar o contéudo do nosso arquivo `.json`, feito isso basta apenas clicar em load.
+
+Agora para visualizar, basta ir em Home, clicar no dashboard "Kubernetes Cluster - Monitoramento" e visualizar os dados, como mostra a imagem abaixo:
+
+![grafana](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/grafana-monitoring.png)
