@@ -211,10 +211,12 @@ Nota: na aplicação é necessário informar alguns dados importantes para o fun
 Com o redis funcionando podemos importar o repositório do [Backend](https://github.com/hebersonaguiar/ditochatbackend), para isso vamos executar o comando abaixo:
 
 ```bash
-jx import --no-draft --url https://github.com/hebersonaguiar/ditochatbackend.git
+jx import --url https://github.com/hebersonaguiar/ditochatbackend.git
 ```
 
-* a tag `--no-draft` faz com que não seja criado os artefatos como o chart e Jenkinsfile, o repositório já possui esses artefatos. 
+* realizado o import é necessário a alteração de alguns dados como, os values.yaml e o deployment.yaml de acordo com a aplicação.
+* caso queira que não seja criado os artefatos use a tag `--no-draft` ela faz com que não seja criado os artefatos como o chart e Jenkinsfile. 
+
 
 Importação do repositório do [Backend](https://github.com/hebersonaguiar/ditochatbackend) realizada com suceso:
 ![importacao backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/import-backend.png)
@@ -222,10 +224,11 @@ Importação do repositório do [Backend](https://github.com/hebersonaguiar/dito
 O próximo repositório a ser importado é o [Frontend](https://github.com/hebersonaguiar/ditochatfrontend), para isso vamos executar o comando abaixo:
 
 ```bash
-jx import --no-draft --url https://github.com/hebersonaguiar/ditochatfrontend.git
+jx import --url https://github.com/hebersonaguiar/ditochatfrontend.git
 ```
 
-* a tag `--no-draft` faz com que não seja criado os artefatos como o chart e Jenkinsfile, o repositório já possui esses artefatos. 
+* realizado o import é necessário a alteração de alguns dados como, os values.yaml e o deployment.yaml de acordo com a aplicação.
+* caso queira que não seja criado os artefatos use a tag `--no-draft` ela faz com que não seja criado os artefatos como o chart e Jenkinsfile. 
 
 Importação do repositório do [Frontend](https://github.com/hebersonaguiar/ditochatfrontend) realizada com suceso:
 ![importacao frontend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/import-frontend.png)
