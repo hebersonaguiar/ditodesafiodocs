@@ -27,7 +27,7 @@ Para esse desafio foram utilizados as seguintes tecnologias:
 
 [Skaffold](https://github.com/hebersonaguiar/ditodesafiodocs#skaffold)
 
-[Nexus](https://github.com/hebersonaguiar/ditodesafiodocs#nexus)
+[Docker Registry](https://github.com/hebersonaguiar/ditodesafiodocs#docker-registry)
 
 [Prometheus](https://github.com/hebersonaguiar/ditodesafiodocs#prometheus)
 
@@ -232,6 +232,33 @@ Após a importação dos repositórios, é dado início ao CI - Continuous Integ
 
 ## Fluxo CI/CD
 
+## Helm Chart
+O Helm é um gerenciador de aplicações Kubernetes onde cria, versiona, compartilha e pública os artefatos. Com ele é possível desenvolver templates dos arquivos YAML e durante a instalaçãoo de cada aplicação personalizar os parâmentros com facilidade. Nesse projeto o helm chart foi utilizado nos repositórios das aplicações [Frontend](https://github.com/hebersonaguiar/ditochatfrontend/tree/master/charts/ditochatfrontend) e [Backend](https://github.com/hebersonaguiar/ditochatbackend/tree/master/charts/ditochatbackend), no qual foi emcapsulado todos os arquivos necessários para a implantação das aplicações, como deployment, service, persistente volume, etc, um template padrão de uma aplicação é seguinte:
+
+![helm chart template](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/helm-chart-temp.png)
+
+Dentro do diretório, existe um arquivo chamado `values.yaml`, muito importante dentro de um helm chart, ele é o resposável por informar para os arquivios YAML quais os valores que serão alterados que podem ser por exemplo: quantidade de replicas, portas de acesso, tipo de deploy, tamanho do volume a ser utilizado, etc.
+
+Nesse projeto, o helm chart não foi criado pelo Jenkins X em sua importação, como informado nos tópicos anteriores, porém caso seja necessário basta remover a tag `--no-draft` no momento da instalação e o Jenkins X se encarrega de criar, entrentanto tenha cuidado, os valores padroes criados podem ser diferente do que a aplicação requer. 
+
+
+## Chart Museum
+O ChartMuseum é um servidor de repositório de Helm Chart de código aberto escrito em Go (Golang), com suporte para back-end de armazenamento em nuvem, incluindo Google Cloud Storage, Amazon S3, Microsoft Azure Blob Storage, Alibaba Cloud OSS Storage e Openstack Object Storage.
+
+Nesse projeto o Chart Museum foi instalado no momento da instalção e configuração do Jenkins X e o Cluster. Ele é essencial para o funcionamento do fluxo CI/CD, onde todo encapsulamento da aplicação fica guardada e versionada, podendo ser utilizada a qualquer momento. O Chart Museum usa uma api para sua manipulação para salvar, baixa e visualizar os chart, como mostra a imagem abaixo:
+
+![importacao frontend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/chart-museum.png)
+
+
+## GitHub
+GitHub é uma plataforma de hospedagem de código-fonte com controle de versão usando o Git. Ele permite que programadores, utilitários ou qualquer usuário cadastrado na plataforma contribuam em projetos privados e/ou Open Source de qualquer lugar do mundo.
+
+Ele possui uma integação muito boa com o Jenkins X, apoiando e facilitando todo fluxo CI/CD bem como o desenvolvimento das aplicações e documentação.
+
+
+## Skaffold
+Skaffold é uma ferramenta de linha de comando que facilita o desenvolvimento contínuo de aplicações no Kubernetes. O Skaffold lida com o fluxo de trabalho para implantar a aplicação. No arquivo skaffold.yaml possuem as variáveis como a do registry, imagem, tag, helm chart, não é necessário nehnhuma alteração, elas são realizadas pelo Jenkins X.
+
 ## Prometheus
 O Prometheus é um kit de ferramentas de monitoramento e alerta de sistemas de código aberto criado originalmente no SoundCloud. Desde a sua criação em 2012, muitas empresas e organizações adotaram o Prometheus, e o projeto possui uma comunidade de desenvolvedores e usuários muito ativa. Agora é um projeto de código aberto independente e mantido independentemente de qualquer empresa. Para enfatizar isso e esclarecer a estrutura de governança do projeto.
 
@@ -291,7 +318,7 @@ kubectl create -f ingress-grafana.yaml
 ```
 O arquivo de configuação do ingress encontra-se em `conf/k8s/`
 
-Grafana em execução:
+[Grafana](http://grafana.ditochallenge.com) em execução:
 
 ![grafana](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/grafana.png)
 
@@ -376,7 +403,7 @@ O comando abaixo cria umm RBAC (role-based access control), um controle de acess
 kubectl create -f fluentd-rbac.yaml
 ```
 
-Criado as permissões, agora podemos criar um DaemonSet, diferente do deployment, o DaemonSet fará com que todos os meu nós, obrigatoriamente contenha um pod do Fluentd, isso é importante pois todos os nós precisam de um mecanismo que possa coletar os dados, segue abaixo o comando:
+Criado as permissões, agora podemos criar um DaemonSet, diferente do deployment, o DaemonSet fará com que todos os nós obrigatoriamente contenha um pod do Fluentd, isso é importante pois todos os nós precisam de um mecanismo que possa coletar os dados, segue abaixo o comando:
 
 ```bash
 kubectl create -f fluentd-daemonset.yaml
