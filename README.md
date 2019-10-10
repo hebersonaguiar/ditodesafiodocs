@@ -240,7 +240,7 @@ Após a importação dos repositórios, é dado início ao CI - Continuous Integ
 
 Como mostrado acima, temos em execução o Redis, as aplicações importadas e as devidas alterações realizadas para o Jenkins X, agora iremos realizar a integração contínua CI e o deploy contínuo CD, o primeiro deploy a ser realizado é o do [backend](https://github.com/hebersonaguiar/ditochatbackend), ele irá se conectar ao `redis.ditochallenge.com` e irá permitir o envio das mensagens do [frontend](https://github.com/hebersonaguiar/ditochatfrontend) `frontend.ditochallenge.com`
 
-Para iniciar o fluxo, deve-se realizar um commit, com isso o webhook aciona o job [ditochatbackend](http://jenkins.jx.108.59.87.39.nip.io/job/hebersonaguiar/job/ditochatbackend/job/master/), responsável pela integração das ferramentas que consiste em realiar o build, push da imagem e chart com a nova tag criada pra o [Docker Registry](docker-registry.jx.108.59.87.39.nip.io) e [Chart Museum](chartmuseum.jx.108.59.87.39.nip.io), e alteração  das configurações necessárias:
+Para iniciar o fluxo, deve-se realizar um commit no código fonte do [backend](https://github.com/hebersonaguiar/ditochatbackend), com isso o webhook aciona o job [ditochatbackend](http://jenkins.jx.108.59.87.39.nip.io/job/hebersonaguiar/job/ditochatbackend/job/master/), responsável pela integração das ferramentas que consiste em realiar o build, push da imagem e chart com a nova tag criada pra o [Docker Registry](docker-registry.jx.108.59.87.39.nip.io) e [Chart Museum](chartmuseum.jx.108.59.87.39.nip.io), e alteração  das configurações necessárias:
 
 ![ci-backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/ci-backend.png)
 
@@ -271,7 +271,7 @@ kubectl create configmap chat-frontend-values \
 		--namespace chatdito
 ```
 
-Como no deploy anterior, para iniciar o fluxo, deve-se realizar um commit, com isso o webhook aciona o job [ditochatbackend](http://jenkins.jx.108.59.87.39.nip.io/job/hebersonaguiar/job/ditochatfrontend/job/master/), responsável pela integração das ferramentas que consiste em realiar o build, push da imagem e chart com a nova tag criada pra o [Docker Registry](docker-registry.jx.108.59.87.39.nip.io) e [Chart Museum](chartmuseum.jx.108.59.87.39.nip.io), e alteração  das configurações necessárias:
+Como no deploy anterior, para iniciar o fluxo, deve-se realizar um commit no código fonte do [frontend](https://github.com/hebersonaguiar/ditochatfrontend), com isso o webhook aciona o job [ditochatfrontend](http://jenkins.jx.108.59.87.39.nip.io/job/hebersonaguiar/job/ditochatfrontend/job/master/), responsável pela integração das ferramentas que consiste em realiar o build, push da imagem e chart com a nova tag criada pra o [Docker Registry](docker-registry.jx.108.59.87.39.nip.io) e [Chart Museum](chartmuseum.jx.108.59.87.39.nip.io), e alteração  das configurações necessárias:
 
 ![ci-backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/ci-backend.png)
 
@@ -291,6 +291,15 @@ Ao finalizar o deploy deve-se então criar o apontamento dns para a aplicação:
 
 ![dns backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/dns-frontend.png)
 
+Pronto! A aplicação do Dito Chat está em pleno funcionamento.
+
+Acesse: http://frontend.ditochallenge.com
+
+![aplicação funcionando](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/app-run.png)
+
+Insira um usuário e comece a coversar.
+
+![conversa](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/app-talk.png)
 
 
 ## Helm Chart
