@@ -236,15 +236,19 @@ Importação do repositório do [Frontend](https://github.com/hebersonaguiar/dit
 Após a importação dos repositórios, é dado início ao CI - Continuous Integration, nesse mommento  é realizado o build e push da imagem e do chart, para suas respecitvas aplicações Docker Registry e Chart Museum, feito isso a imagem é promovida para o ambiente de deploy Kubernetes, nesse mommento o repositóio de CD - Continuous Delivery é acionado após uma solicitação de pull request, realizado o pull request o deploy é realizado com a image e chart criado anteriormente.
 
 
-## Fluxo CI/CD
+## CI/CD
 
-Como mostrado acima, temos em execução o Redis e as aplicações importadas e as devidas alterações realizadas para o Jenkins X, agora iremos realizar a integração contínua CI e o deploy contínuo CD, o primeiro deploy a ser realizado é o do [backend](https://github.com/hebersonaguiar/ditochatbackend), ele irá se conectar ao `redis.ditochallenge.com` e irá permitir o envio das mensagens do [frontend](https://github.com/hebersonaguiar/ditochatfrontend) `frontend.ditochallenge.com`
+Como mostrado acima, temos em execução o Redis, as aplicações importadas e as devidas alterações realizadas para o Jenkins X, agora iremos realizar a integração contínua CI e o deploy contínuo CD, o primeiro deploy a ser realizado é o do [backend](https://github.com/hebersonaguiar/ditochatbackend), ele irá se conectar ao `redis.ditochallenge.com` e irá permitir o envio das mensagens do [frontend](https://github.com/hebersonaguiar/ditochatfrontend) `frontend.ditochallenge.com`
 
-Para iniciar o fluxo, deve-se realizar um commit, com isso o webhook aciona o job [ditochatbackend](http://jenkins.jx.108.59.87.39.nip.io/job/hebersonaguiar/job/ditochatbackend/job/master/), responsável pela integração das ferramentas que consiste em realiar o build e push da imagem e chart com a nova tag criada pra o [Docker Registry](docker-registry.jx.108.59.87.39.nip.io) e [Chart Museum](chartmuseum.jx.108.59.87.39.nip.io), alteração dos das configurações necessárias:
+Para iniciar o fluxo, deve-se realizar um commit, com isso o webhook aciona o job [ditochatbackend](http://jenkins.jx.108.59.87.39.nip.io/job/hebersonaguiar/job/ditochatbackend/job/master/), responsável pela integração das ferramentas que consiste em realiar o build, push da imagem e chart com a nova tag criada pra o [Docker Registry](docker-registry.jx.108.59.87.39.nip.io) e [Chart Museum](chartmuseum.jx.108.59.87.39.nip.io), e alteração  das configurações necessárias:
 
 ![ci-backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/ci-backend.png)
 
-No final do job antes de finalizar é solicitado um pull request para o repositório de deploy [CD](https://github.com/hebersonaguiar/environment-jx-chatdito), após o pull request o deploy é realizado, nesse repositório contém configurações que são alteradas para que seja realizado o deploy de forma correta no ambiente correto nesse projeto no kubernetes no namespace `chatdito`.
+No final do job antes de finalizar ao realizar a promote é solicitado um pull request para o repositório de deploy [CD](https://github.com/hebersonaguiar/environment-jx-chatdito), 
+
+![pull-request-backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/pull-chatditoback.png)
+
+após o pull request o deploy é realizado, nesse repositório contém configurações que são alteradas para que seja realizado o deploy de forma correta no ambiente correto nesse projeto no kubernetes no namespace `chatdito`.
 
 ![cd-backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/cd-backend.png)
 
@@ -252,12 +256,40 @@ Após o deploy finalizado, ao acessar o namespace `chatdito` irão ter os pods c
 
 ![deploy backend success](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/deploy-backend-success.png)
 
-Para finalizar esse deploy deve-se então criar o apontamento dns para a aplicação:
+Ao finalizar o deploy deve-se então criar o apontamento dns para a aplicação:
 
 ![dns backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/dns-backend.png)
 
 
-Deploy do backend finalizado, agora iremos para o [Frontend](https://github.com/hebersonaguiar/ditochatfrontend)
+Deploy do backend finalizado, agora iremos para o [frontend](https://github.com/hebersonaguiar/ditochatfrontend)
+
+Antes de iniciar o deploy, para a aplicação [frontend](https://github.com/hebersonaguiar/ditochatfrontend) é necessário criar o configmap no namespace `chatdito`, que irá realizar a alteração das variáveis de conexão com o [backend](https://github.com/hebersonaguiar/ditochatbackend), segue abaixo o comando:
+
+```bash
+kubectl create configmap chat-frontend-values \
+		--from-literal REACT_APP_BACKEND_WS_URL='backend.ditochallenge.com' \
+		--namespace chatdito
+```
+
+Como no deploy anterior, para iniciar o fluxo, deve-se realizar um commit, com isso o webhook aciona o job [ditochatbackend](http://jenkins.jx.108.59.87.39.nip.io/job/hebersonaguiar/job/ditochatfrontend/job/master/), responsável pela integração das ferramentas que consiste em realiar o build, push da imagem e chart com a nova tag criada pra o [Docker Registry](docker-registry.jx.108.59.87.39.nip.io) e [Chart Museum](chartmuseum.jx.108.59.87.39.nip.io), e alteração  das configurações necessárias:
+
+![ci-backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/ci-backend.png)
+
+No final do job antes de finalizar ao realizar a promote é solicitado um pull request para o repositório de deploy [CD](https://github.com/hebersonaguiar/environment-jx-chatdito),
+
+![pull-request-frontend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/pull-chatditofront.png)
+
+após o pull request o deploy é realizado, nesse repositório contém configurações que são alteradas para que seja realizado o deploy de forma correta no ambiente correto nesse projeto no kubernetes no namespace `chatdito`.
+
+![cd-backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/cd-frontend.png)
+
+Após o deploy finalizado, ao acessar o namespace `chatdito` irão ter os pods criados, e serviços:
+
+![deploy backend success](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/deploy-frontend-success.png)
+
+Ao finalizar o deploy deve-se então criar o apontamento dns para a aplicação:
+
+![dns backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/dns-frontend.png)
 
 
 
