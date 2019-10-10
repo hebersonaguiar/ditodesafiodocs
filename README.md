@@ -330,6 +330,7 @@ ELK signifca ELasticsearch, Logstash e Kíbana, um conjunto de aplicações que 
 Na instalação do ELK não iremos utilizar o Helm Chart, vamos fazer urilizando o próprio Kubernetes, todos as configurações que iremos utilizar aqui estão em `conf/k8s/elk`.
 
 * Elasticssearch
+
 O Elasticsearch é um mecanismo de pesquisa e análise de código aberto distribuído para todos os tipos de dados, incluindo texto, numérico, geoespacial, estruturado e não estruturado.
 Primiero passo para instalação é a criação do deployment, no qual irá ser criado um pod do elasticsearch, para isso execute o comando abaixo:
 
@@ -344,6 +345,7 @@ kubectl create -f service-elastic.yaml
 ```
 
 * Kibana
+
 O Kibana permite visualizar os dados do Elasticsearch  para você poder fazer qualquer coisa, desde rastrear a carga de consultas até entender a maneira como as solicitações fluem pelos aplicativos.
 O Kibana será nosso frontend dos logs, ou seja, iremos poder ver os logs, gráficos de logs de nosso cluster a partir dele, para sua instalação iremos executar os seguintes comandos:
 
@@ -364,6 +366,7 @@ kubectl create -f ingress-kibana.yaml
 ```
 
 * Logstash
+
 O Logstash é um pipeline de processamento de dados open source do lado do servidor que faz a ingestão de dados a partir de inúmeras fontes simultaneamente, transforma-os e envia-os para o seu "esconderijo" favorito.
 Para esse projeto iremos utilizar o Fluentd como Logstash, ele vai se conectar ao elasticsearch e coletar os dados, para isso iremos executar os comandos abaixo:
 
