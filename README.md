@@ -199,11 +199,33 @@ Pronto, o redis está funcionando:
 Como mostra na imagem acima, o seviço do redis possui um ip e porta pública, agora iremos criar o aponamento dns [redis.ditochallenge.com](http://redis.ditochallenge.com) utilizando o Google Cloud DNS.
 ![dns redis](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/redis-dns.png)
 
-Com o redis funcionando, podemos então importar o repositório do [Backend](https://github.com/hebersonaguiar/ditochatbackend), para isso vamos executar o comando abaixo:
+Outra configuração importante a ser feita é a ciação do configmap da aplicação, no qual será informado as variáveis de conexão com o redis e o frontend:
 
 ```bash
-jx import --url https://github.com/hebersonaguiar/ditochatbackend.git
+kubectl create configmap chat-backend-values --from-literal ALLOWED_ORIGIN='http://frontend.ditochallenge.com:3000' --from-literal REDIS_ADDR='redis.ditochallenge.com:6379' -n chatdito
 ```
+
+Com o redis funcionando e o configmap criado podemos então importar o repositório do [Backend](https://github.com/hebersonaguiar/ditochatbackend), para isso vamos executar o comando abaixo:
+
+```bash
+jx import --no-draft --url https://github.com/hebersonaguiar/ditochatbackend.git
+```
+
+* a tag `--no-draft` faz com que não seja criado os artefatos como o chart e Jenkinsfile, o repositório já possui esses artefatos. 
 
 Importação do repositório do [Backend](https://github.com/hebersonaguiar/ditochatbackend) realizada com suceso:
 ![importacao backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/import-backend.png)
+
+O próximo repositório a ser importado é o [Frontend](https://github.com/hebersonaguiar/ditochatfrontend), para isso vamos executar o comando abaixo:
+
+```bash
+jx import --no-draft --url https://github.com/hebersonaguiar/ditochatfrontend.git
+```
+
+* a tag `--no-draft` faz com que não seja criado os artefatos como o chart e Jenkinsfile, o repositório já possui esses artefatos. 
+
+Importação do repositório do [Frontend](https://github.com/hebersonaguiar/ditochatfrontend) realizada com suceso:
+![importacao frontend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/import-frontend.png)
+
+Após a importação dos repositórios, é dado início ao CI - Continuous Integration, nesse mommento  é realizado os build e push da imagem e do chart, para suas respecitvas aplicações Docker Registry e Chart Museum, feito isso a imagem é promovida para o ambiente de deploy Kubernetes, nesse mommento o repositóio de CD - Continuous Delivery é acionado após uma solicitação de pull request, realizado o pull request o deploy é realizado com a image e chart criado anteriormente.
+
