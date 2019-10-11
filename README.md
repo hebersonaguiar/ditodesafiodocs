@@ -1,3 +1,5 @@
+## Dito Chat
+
 Esse reposítório foi criado para servir de complementação à documetação dos projetos do Dito Desafio, que são os repositórios abaixo:
 
 [Dito Chat Backend](https://github.com/hebersonaguiar/ditochatbackend)
