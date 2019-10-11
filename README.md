@@ -172,9 +172,11 @@ Abaixo segue o passo-a-passo utilizado para criação e configuração do cluste
 ![autenticação gcp](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/solicitacao-de-acesso.png)
 
 * Seleção do projeto
+
 ![seleção do projeto gcp](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/projeto-escolha.png)
 
 * Seleção da zona
+
 ![selecao da zona gcp](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/zona.png)
 
 * Criação do Cluster
@@ -258,7 +260,7 @@ Pronto, o redis está funcionando:
 
 ![redis](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/redis-k8s.png)
 
-Como mostra na imagem acima, o seviço do redis possui um ip e porta pública, agora iremos criar o aponamento dns [redis.ditochallenge.com](http://redis.ditochallenge.com) utilizando o Google Cloud DNS.
+Como mostra na imagem acima, o seviço do redis possui um ip e porta pública, agora iremos criar o aponamento dns `redis.ditochallenge.com` utilizando o Google Cloud DNS.
 ![dns redis](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/redis-dns.png)
 
 Nota: na aplicação é necessário informar alguns dados importantes para o funcionamento, que é a origem da conexão de envio das mensagens, ou seja, o [frontend](https://github.com/hebersonaguiar/ditochatfrontend) e o redis, que é o responsável por salvar as mensagens. Para esse projeto foi criado e configurado os domínios  `frontend.ditochallenge.com` e `redis.ditochallenge.com`, eles são informados no código da aplicação em `main.go`.
@@ -270,6 +272,7 @@ jx import --url https://github.com/hebersonaguiar/ditochatbackend.git
 ```
 
 Realizado o import é necessário a alteração de alguns dados como, o values.yaml e o deployment.yaml de acordo com a aplicação.
+
 Nota: caso queira que não seja criado os artefatos use a tag `--no-draft` ela faz com que não seja criado os artefatos como o chart e Jenkinsfile. 
 
 
@@ -283,6 +286,7 @@ jx import --url https://github.com/hebersonaguiar/ditochatfrontend.git
 ```
 
 Realizado o import é necessário a alteração de alguns dados como, o values.yaml e o deployment.yaml de acordo com a aplicação.
+
 Nota: caso queira que não seja criado os artefatos use a tag `--no-draft` ela faz com que não seja criado os artefatos como o chart e Jenkinsfile. 
 
 Importação do repositório do [Frontend](https://github.com/hebersonaguiar/ditochatfrontend) realizada com suceso:
@@ -358,7 +362,7 @@ Insira um usuário e comece a coversar.
 
 Alterando Código em produção:
 
-Iremos realizar agora um novo deploy, dessa vez iremos alterar o código fonte da aplicação [frontend](https://github.com/hebersonaguiar/ditochatfrontend), dentro da pasta `public/index.html` foi alterado o título da página de `React App` para `Dito Chat` e em `src/Login.js` onde tem `Guest` foi alterado par `Convidado`.
+Iremos realizar agora um novo deploy, dessa vez iremos alterar o código fonte da aplicação [frontend](https://github.com/hebersonaguiar/ditochatfrontend), dentro da pasta `public/index.html` foi alterado o título da página de `React App` para `Dito Chat` e em `src/Login.js` onde tem `Guest` foi alterado para `Convidado`.
 
 Após o commit, o fluxo CICD mostrado anteriormente será executado novamente, criando novas tags e realizando o deploy da aplicação em produção:
 
@@ -372,7 +376,7 @@ Deploy realizado - Frontend Browser:
 
 
 ## Helm Chart
-O Helm é um gerenciador de aplicações Kubernetes onde cria, versiona, compartilha e pública os artefatos. Com ele é possível desenvolver templates dos arquivos YAML e durante a instalação de cada aplicação personalizar os parâmentros com facilidade. 
+O Helm Chart é um gerenciador de aplicações Kubernetes onde cria, versiona, compartilha e pública os artefatos. Com ele é possível desenvolver templates dos arquivos YAML e durante a instalação de cada aplicação personalizar os parâmentros com facilidade. 
 
 Nesse projeto o helm chart foi utilizado nos repositórios das aplicações [Frontend](https://github.com/hebersonaguiar/ditochatfrontend/tree/master/charts/ditochatfrontend) e [Backend](https://github.com/hebersonaguiar/ditochatbackend/tree/master/charts/ditochatbackend), no qual foi emcapsulado todos os arquivos necessários para a implantação das aplicações, como deployment, service, persistente volume, etc, um template padrão de uma aplicação é a seguinte:
 
@@ -384,7 +388,7 @@ Dentro do diretório de charts, existe um arquivo chamado `values.yaml`, muito i
 ## Chart Museum
 O ChartMuseum é um servidor de repositório de Helm Chart de código aberto escrito em Go (Golang), com suporte para back-end de armazenamento em nuvem, incluindo Google Cloud Storage, Amazon S3, Microsoft Azure Blob Storage, Alibaba Cloud OSS Storage e Openstack Object Storage.
 
-Nesse projeto o Chart Museum foi instalado no momento da instalção e configuração do Jenkins X e o Cluster. Ele é essencial para o funcionamento do fluxo CI/CD, onde todo encapsulamento da aplicação fica salva e versionada, podendo ser utilizada a qualquer momento. O Chart Museum usa uma api para sua manipulação para salvar, baixa e visualizar os chart, como mostra a imagem abaixo:
+Nesse projeto o Chart Museum foi instalado no momento da instalção e configuração do Jenkins X e o Cluster. Ele é essencial para o funcionamento do fluxo CI/CD, onde todo encapsulamento do helm chart fica salva e versionada, podendo ser utilizada a qualquer momento. O Chart Museum usa uma api para sua manipulação para salvar, baixa e visualizar os chart, como mostra a imagem abaixo:
 
 ![importacao frontend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/chart-museum.png)
 
@@ -433,7 +437,7 @@ O arquivo de configuação do ingress encontra-se em `conf/k8s/`
 ## Grafana
 Grafana é uma suíte de análise e visualização métrica de código aberto. É mais comumente usado para visualizar dados de séries temporais para análise de infraestrutura e aplicativos.
 
-Nesse projeto iremos istalar o grafana e configurá-lo para conectar-se ao prometheus e configurar dashboards de métricas do cluster e as aplicações, para isso iremos utilizar o helm chart,  para sua instalação iremos utilizar o comando abaixo:
+Nesse projeto iremos instalar o grafana e configurá-lo para conectar-se ao prometheus e configurar dashboards de métricas do cluster e as aplicações, para isso iremos utilizar o helm chart,  para sua instalação iremos utilizar o comando abaixo:
 
 * Criação de um namespace para o monitoramento e log (caso não exista)
 
@@ -498,7 +502,7 @@ Agora para visualizar, basta ir em Home, clicar no dashboard "Kubernetes Cluster
 ## ELK
 ELK signifca ELasticsearch, Logstash e Kíbana, um conjunto de aplicações que nos ajudam a ter uma melhor visialização dos logs de ambientes, nesse projeto iremos configurar essas aplicações para que possamos ter os logs de nosso cluster.
 
-Na instalação do ELK não iremos utilizar o Helm Chart, vamos fazer urilizando o próprio Kubernetes, todos as configurações que iremos utilizar aqui estão em `conf/k8s/elk`.
+Na instalação do ELK não iremos utilizar o Helm Chart, vamos fazer urilizando o próprio Kubernetes, todas as configurações que iremos utilizar aqui estão em `conf/k8s/elk`.
 
 * Elasticssearch
 
@@ -552,6 +556,6 @@ Criado as permissões, agora podemos criar um DaemonSet, diferente do deployment
 ```bash
 kubectl create -f fluentd-daemonset.yaml
 ```
-Pronto, agora basta acessar o [Kibana](http://kibana.ditochallenge.com), configurar os index do logstash e pronto, é só criar os devidos gráficos e pesquisas. 
+Pronto, agora basta acessar o [Kibana](http://kibana.ditochallenge.com), configurar os index do logstash e pronto.
 
 ![elk](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/kibana-access.png)
