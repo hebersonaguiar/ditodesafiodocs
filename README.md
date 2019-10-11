@@ -4,10 +4,12 @@ Esse reposítório foi criado para servir de complementação à documetação d
 
 [Dito Chat Frontend](https://github.com/hebersonaguiar/ditochatfrontend)
 
-Os repositórios infomrados acima, possuem suas prórprias documentações referente ao seu uso local e em um ambiente de cluster kubernetes.
+Os repositórios informados acima, possuem suas prórprias documentações referente ao seu uso local e em um ambiente de cluster kubernetes.
 
 ## A proposta
-A proposta desse projeto é de em base ao repositório [Dito Chat](https://github.com/ditointernet/dito-chat) que foi repassado pela Dito, colocar em produção, prezando pela utilização de ferramentas de deploy contínuo, grantindo a alta disponibilidade e manutenabilidade(monitoramento e logs), para isso diversos trabalhos foram realizado, pois o repositório [Dito Chat](https://github.com/ditointernet/dito-chat) possuem apenas o código fonte da aplicação e uma breve explicação de como deve ser utilizada.
+A proposta desse projeto é de em base ao repositório [Dito Chat](https://github.com/ditointernet/dito-chat) que foi repassado pela Dito, utilizar o estado da arte para configurar a aplicação em um ambiente de produção, prezando pela utilização de ferramentas de deploy contínuo, grantindo a alta disponibilidade e manutenabilidade (monitoramento e logs), para isso diversos trabalhos foram realizado, pois o repositório [Dito Chat](https://github.com/ditointernet/dito-chat) possuem apenas o código fonte da aplicação e uma breve explicação de como deve ser utilizada.
+
+Pensando em micro-serviços, a aplicação do repositório [Dito Chat](https://github.com/ditointernet/dito-chat), foi dividida em dois um para o frontend e outro para o backend, com isso teremos a divisão do desenvolvimento e também uma melhoria na disponibilidade e manutenabilidade.
 
 Para esse desafio foram utilizados as seguintes tecnologias:
 
@@ -36,26 +38,59 @@ Para esse desafio foram utilizados as seguintes tecnologias:
 [ELK](https://github.com/hebersonaguiar/ditodesafiodocs#elk)
 
 
-Todos as tecnologias informadas acima serão descritas e detalhadas nesse documento, bem como suas integrações e uso.
+Todos as tecnologias informadas acima serão descritas e detalhadas nesse documento, bem como suas integrações.
+
+
+DNS e acessos desse projeto:
+
+[chartmuseum.jx.108.59.87.39.nip.io](http://chartmuseum.jx.108.59.87.39.nip.io)
+[docker-registry.jx.108.59.87.39.nip.io](http://docker-registry.jx.108.59.87.39.nip.io)
+[jenkins.jx.108.59.87.39.nip.io](http://jenkins.jx.108.59.87.39.nip.io)
+[nexus.jx.108.59.87.39.nip.io](http://nexus.jx.108.59.87.39.nip.io)
+[frontend.ditochallenge.com](http://frontend.ditochallenge.com)
+[backend.ditochallenge.com](http://backend.ditochallenge.com)
+[redis.ditochallenge.com](http://redis.ditochallenge.com)
+[grafana.ditochallenge.com](http://grafana.ditochallenge.com)
+[kibana.ditochallenge.com](http://kibana.ditochallenge.com)
+[prometheus.ditochallenge.com](http://prometheus.ditochallenge.com)
+
+Credenciais de acesso:
+
+Jenkins, Nexus:
+
+`Username: admin`
+
+`Password: i-HJomkfDA7~byKH429S`
+
+Grafana:
+
+`Usuário: admin`
+
+`Senha: gc5iMZLszrPVwLaJyEGxEf7nNvxL7uq0YGkLQU4p`
+
+Prometheus, Chart Museum, Docker Registry e Kibana possuem acesso livre. 
+
 
 ## Qual ideia desse projeto?
 
-De forma bem enxuta, a ideia desse projeto é que ao realizar alguma alteração no código da aplicação no repositório, automaticamente o deploy da aplicação para produção é acionada, mas como que isso funciona? Ao realizar o commit um webhook integrado com o Jenkins X é acionada dando inicio aó deploy, só que durante esse processo algumas ações são realizadas para que as alterações tenham efeito, que são o build da imagem da aplicação com as alterações realizadas, push da imagem para o repositório, build do helm chart com a nova versão da imagem, push do helm chart para o Chart Museum e por fim o deploy da aplicação para o cluster. 
+De forma bem rápida, a ideia desse projeto é que ao realizar alguma alteração no código da aplicação no repositório, automaticamente o deploy para produção é acionada, mas como que isso funciona? Ao realizar o commit um webhook integrado com o Jenkins X é acionada dando inicio aó deploy, só que durante esse processo algumas ações são realizadas para que as alterações tenham efeito, que são o build da imagem da aplicação com as alterações realizadas, push da imagem para o repositório, build do helm chart com a nova versão da imagem, push do helm chart para o Chart Museum e por fim o deploy da aplicação para o cluster. 
 
-Vale resaltar que, quando o commit é realizado, uma tag é criada e essa mesma tag segue todo o fluxo para todos os artefatos, imagem, helm chart, etc, ou seja, o rasterio da imagem dentro do fluxo é de fácil indentificação, apoiando muito na manutenção da aplicação e do ambiente.
+Vale resaltar que, quando o commit é realizado, uma tag é criada e essa mesma tag segue todo o fluxo para todos os artefatos, imagem, helm chart, etc, ou seja, o rastreio da imagem dentro do fluxo é de fácil indentificação, apoiando muito na manutenção da aplicação e do ambiente.
 
 Outro fato importante é, as informações de container como uso de memória, cpu e logs, são enviados para o Grafana e Kibana.
 
 ## Docker
-O Docker é uma plataforma para desenvolvedores e administradores de sistemas para desenvolver, enviar e executar aplicativos. O Docker permite montar aplicativos rapidamente a partir de componentes e elimina o atrito que pode ocorrer no envio do código. O Docker permite que seu código seja testado e implantado na produção o mais rápido possível. Originalmente essa aplicação não foi desenvolvida para docker, porém sua criação é simples e rápido.
+O Docker é uma plataforma para desenvolvedores e administradores de sistemas para desenvolver, enviar e executar aplicativos. O Docker permite montar aplicativos rapidamente a partir de componentes e elimina o atrito que pode ocorrer no envio do código. O Docker permite que seu código seja testado e implantado na produção o mais rápido possível. 
+
+Originalmente essa aplicação não foi desenvolvida para docker, porém sua criação é simples e rápido.
 
 ## Google Cloud Plataform
 Google Cloud Platform também conhecida como GCP é uma suíte de cloud oferecida pelo Google, funcionando na mesma infraestrutura que a empresa usa para seus produtos dirigidos aos usuários, dentre eles o Buscador Google e o Youtube.
 Para esse projeto foi utilizada uma conta pessoal. Os produtos que iremos utilizar são 
 
-* [Google Cloud Plataform](https://github.com/hebersonaguiar/ditodesafiodocs#google-cloud-plataform), onde foi utilizado o domínio `ditochallenge.com` apontando os momes das aplicações para os serviços de entrada de requição, que pode ser ou o Service ou Ingress do Kubernetes.
+* [Google Cloud Plataform](https://github.com/hebersonaguiar/ditodesafiodocs#google-cloud-plataform), onde foi utilizado o domínio `ditochallenge.com` apontando os momes das aplicações para os serviços de entrada de requisição, que pode ser o Service ou Ingress do Kubernetes.
 
-* [Google Kubernetes Engine](https://github.com/hebersonaguiar/ditodesafiodocs#kubernetes), utilizado para criar o cluster do Kubernetes. Existe um ponto bem interessante que é preciso informar, ao criar o cluster Kubernetes com o Kubernetes Engine, o master é de responsabilidade da Google Cloud, ou seja, todos os servidores que estão sendo utilizados são Nodes, não precisamos nos preocupar com o master.
+* [Kubernetes Engine](https://github.com/hebersonaguiar/ditodesafiodocs#kubernetes), utilizado para criar o cluster do Kubernetes. Ao criar o cluster Kubernetes com o Kubernetes Engine, o master é de responsabilidade da Google Cloud, ou seja, todos os servidores que estão sendo utilizados são Nodes, não é necessário se preocupar com o master.
 
 Existem divesas formas de criar um cluster no GCP, como por exemplo, pelo [console](https://console.cloud.google.com/kubernetes/), onde é possível escolher a quantidade de servidores, recusros e localidade, a outra forma é por linha de comando utilizando o `gcloud`, ex:
 
@@ -63,13 +98,11 @@ Existem divesas formas de criar um cluster no GCP, como por exemplo, pelo [conso
 gcloud container clusters create [CLUSTER_NAME] [--zone [COMPUTE_ZONE]] -num-nodes 3
 ```
 
-e a outra forma é a que utilizamos nesse projeto, utilizando o Jenkins X por linha de comando, como mostra abaixo:
+e a outra forma é a utilizada nesse projeto, utilizando o [Jenkins X](https://github.com/hebersonaguiar/ditodesafiodocs#jenkins-x) por linha de comando, como mostra abaixo:
 
 ```bash
 jx create cluster gke
 ```
-
-o detalhamento da criação está no tópico  do [Jenkins X](https://github.com/hebersonaguiar/ditodesafiodocs#jenkins-x)
 
 ## Kubernetes
 
@@ -79,10 +112,15 @@ Nesse projeto foi utilizado o kubernetes na versão `v1.13.7-gke.24`, o cluster 
 
 A instação do cluster kubernetes foi realizada pelo Jenkins X, no qual possui uma forte integração com a GCP, criando um ambinete de CI/CD de forma rápida e fácil.
 
+O cluster criado contém três nós, como mostra a imagem abaixo:
+
+![k8s nodes](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/k8s-nodes.png)
+
+
 ## Jenkins X
 O Jenkins X possui os conceitos de Aplicativos e Ambientes. Você não instala o Jenkins diretamente para usar o Jenkins X, pois o Jenkins é incorporado como um mecanismo de pipeline como parte da instalação.
 
-Nesse projeto a toda a criação do cluster e as integrações do Kubernetes com Jenkins X, Chart Museum e Nexus, foi toda realizada utilizando o Jenkins X, porém antes da criação do cluster, é necessário realizar as instalações e configurações dos pré-requisitos, que são os jx, helm, kubectl e gcloud, segue abaixo:
+Nesse projeto a toda a criação do cluster e as integrações do Kubernetes com Jenkins X, Chart Museum e Docker Registry, foi toda realizada utilizando o Jenkins X, porém antes da criação do cluster, é necessário realizar as instalações e configurações dos pré-requisitos, que são os jx, helm, kubectl e gcloud:
 
 * Jenkins X
 ```bash
@@ -104,7 +142,7 @@ Para instalar o helm e kubectl, pode-se usar o próprio jx:
 ```bash
 jx install dependencies
 ```
-Ao executar o comando acima, o jx irá solicitar que seja escolhido as dependências que deseja instalar, basta escolher apertando a barra de espaço e depois enter par iniciar a instalação, como mostra a imagem abaixo:
+Ao executar o comando acima, o jx irá solicitar que seja escolhido as dependências que deseja instalar, basta escolher apertando a barra de espaço e depois enter par iniciar a instalação, como mostra az imagens abaixo:
 
 ![jx install dependencies kubectl helm](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/install-dependencies.png)
 ![jx install dependencies kubectl helm](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/install-dependencies-s.png)
@@ -123,10 +161,10 @@ Abaixo segue o passo-a-passo utilizado para criação e configuração do cluste
 * Autenticação no GCP, o Jenkins X gera um link de acesso para autetnticação, basta copiar e colar em qualquer browser:
 ![autenticação gcp](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/solicitacao-de-acesso.png)
 
-* Seleção do projeto para criação do cluster
+* Seleção do projeto
 ![seleção do projeto gcp](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/projeto-escolha.png)
 
-* Seleção da zona para criação do cluster
+* Seleção da zona
 ![selecao da zona gcp](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/zona.png)
 
 * Criação do Cluster
@@ -159,10 +197,17 @@ Abaixo segue o passo-a-passo utilizado para criação e configuração do cluste
 * Jenkins, Chart Museum, Docker Registry criados com sucesso
 ![instalacao concluida](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/jenkins-instalado.png)
 
-* JAcesso às aplicações criadas (Ingress)
+* Acesso às aplicações criadas (Ingress)
 ![instalacao concluida](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/ingress-criado.png)
 
-O acesso as aplicações criadas são:
+* Nesse projeto não iremos utilizar os environments criados pelo Jenkins X, iremos criar um de produção chamado `chatdito`:
+
+```bash
+jx create env -n chatdito -l Production --namespace chatdito
+```
+![env chatdito](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/create-env-chatdito.png)
+
+Credenciais de acesso as aplicações criadas são:
 
 `Username: admin`
 
@@ -184,7 +229,7 @@ Antes de importar os projetos para o Jenkins X, é necessário enteder a arquite
 
 O redis é uma aplicação de terceiro, com isso não foi criado um repositório para ele, dessa forma iremos criar um redis no cluster utilizando o kubernetes, segue abaixo:
 
-* Criando namespace para o projeto
+* Criando namespace para o projeto (caso não exista)
 ```bash
 kubectl create namespace chatdito
 ```
@@ -214,8 +259,8 @@ Com o redis funcionando podemos importar o repositório do [Backend](https://git
 jx import --url https://github.com/hebersonaguiar/ditochatbackend.git
 ```
 
-* realizado o import é necessário a alteração de alguns dados como, os values.yaml e o deployment.yaml de acordo com a aplicação.
-* caso queira que não seja criado os artefatos use a tag `--no-draft` ela faz com que não seja criado os artefatos como o chart e Jenkinsfile. 
+Realizado o import é necessário a alteração de alguns dados como, o values.yaml e o deployment.yaml de acordo com a aplicação.
+Nota: caso queira que não seja criado os artefatos use a tag `--no-draft` ela faz com que não seja criado os artefatos como o chart e Jenkinsfile. 
 
 
 Importação do repositório do [Backend](https://github.com/hebersonaguiar/ditochatbackend) realizada com suceso:
@@ -227,20 +272,20 @@ O próximo repositório a ser importado é o [Frontend](https://github.com/heber
 jx import --url https://github.com/hebersonaguiar/ditochatfrontend.git
 ```
 
-* realizado o import é necessário a alteração de alguns dados como, os values.yaml e o deployment.yaml de acordo com a aplicação.
-* caso queira que não seja criado os artefatos use a tag `--no-draft` ela faz com que não seja criado os artefatos como o chart e Jenkinsfile. 
+Realizado o import é necessário a alteração de alguns dados como, o values.yaml e o deployment.yaml de acordo com a aplicação.
+Nota: caso queira que não seja criado os artefatos use a tag `--no-draft` ela faz com que não seja criado os artefatos como o chart e Jenkinsfile. 
 
 Importação do repositório do [Frontend](https://github.com/hebersonaguiar/ditochatfrontend) realizada com suceso:
 ![importacao frontend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/import-frontend.png)
 
-Após a importação dos repositórios, é dado início ao CI - Continuous Integration, nesse mommento  é realizado o build e push da imagem e do chart, para suas respecitvas aplicações Docker Registry e Chart Museum, feito isso a imagem é promovida para o ambiente de deploy Kubernetes, nesse mommento o repositóio de CD - Continuous Delivery é acionado após uma solicitação de pull request, realizado o pull request o deploy é realizado com a image e chart criado anteriormente.
+Após a importação dos repositórios, é dado início ao CI - Continuous Integration, nesse mommento  é realizado o build e push da imagem e do chart, para suas respecitvas aplicações Docker Registry e Chart Museum, feito isso a imagem é promovida para o ambiente de deploy Kubernetes, nesse mommento o repositóio de CD - Continuous Delivery é acionado após uma solicitação de pull request, realizado o pull request o deploy é realizado com a imagem e chart criado anteriormente.
 
 
 ## CI/CD
 
-Como mostrado acima, temos em execução o Redis, as aplicações importadas e as devidas alterações realizadas para o Jenkins X, agora iremos realizar a integração contínua CI e o deploy contínuo CD, o primeiro deploy a ser realizado é o do [backend](https://github.com/hebersonaguiar/ditochatbackend), ele irá se conectar ao `redis.ditochallenge.com` e irá permitir o envio das mensagens do [frontend](https://github.com/hebersonaguiar/ditochatfrontend) `frontend.ditochallenge.com`
+Como mostrado acima, temos em execução o redis, as aplicações importadas e as devidas alterações realizadas para o Jenkins X, agora iremos realizar a integração contínua CI e o deploy contínuo CD, o primeiro deploy a ser realizado é o do [backend](https://github.com/hebersonaguiar/ditochatbackend), ele irá se conectar ao `redis.ditochallenge.com` e irá permitir o envio das mensagens do [frontend](https://github.com/hebersonaguiar/ditochatfrontend) `frontend.ditochallenge.com`
 
-Para iniciar o fluxo, deve-se realizar um commit no código fonte do [backend](https://github.com/hebersonaguiar/ditochatbackend), com isso o webhook aciona o job [ditochatbackend](http://jenkins.jx.108.59.87.39.nip.io/job/hebersonaguiar/job/ditochatbackend/job/master/), responsável pela integração das ferramentas que consiste em realiar o build, push da imagem e chart com a nova tag criada pra o [Docker Registry](docker-registry.jx.108.59.87.39.nip.io) e [Chart Museum](chartmuseum.jx.108.59.87.39.nip.io), e alteração  das configurações necessárias:
+Para iniciar o fluxo, deve-se realizar um commit no código fonte do [backend](https://github.com/hebersonaguiar/ditochatbackend), com isso o webhook aciona o job [ditochatbackend](http://jenkins.jx.108.59.87.39.nip.io/job/hebersonaguiar/job/ditochatbackend/job/master/), responsável pela integração das ferramentas que consiste em realizar o build, push da imagem e chart com a nova tag criada pra o [Docker Registry](docker-registry.jx.108.59.87.39.nip.io) e [Chart Museum](chartmuseum.jx.108.59.87.39.nip.io), e alteração  das configurações necessárias:
 
 ![ci-backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/ci-backend.png)
 
@@ -252,7 +297,7 @@ após o pull request o deploy é realizado, nesse repositório contém configura
 
 ![cd-backend](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/cd-backend.png)
 
-Após o deploy finalizado, ao acessar o namespace `chatdito` irão ter os pods criados, e serviços:
+Após o deploy finalizado, ao acessar o namespace `chatdito` irão ter os pods criados e serviços:
 
 ![deploy backend success](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/deploy-backend-success.png)
 
@@ -301,15 +346,29 @@ Insira um usuário e comece a coversar.
 
 ![conversa](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/app-talk.png)
 
+Alterando Código em produção:
+
+Iremos realizar agora um novo deploy, dessa vez iremos alterar o código fonte da aplicação [frontend](https://github.com/hebersonaguiar/ditochatfrontend), dentro da pasta `public/index.html` foi alterado o título da página de `React App` para `Dito Chat` e em `src/Login.js` onde tem `Guest` foi alterado par `Convidado`.
+
+Após o commit, o fluxo CICD mostrado anteriormente será executado novamente, criando novas tags e realizando o deploy da aplicação em produção:
+
+Deploy realizado - Kubernetes:
+
+![aplicação funcionando](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/deploy-frontend-success-um.png)
+
+Deploy realizado - Frontend Browser:
+
+![aplicação funcionando](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/app-run-um.png)
+
 
 ## Helm Chart
-O Helm é um gerenciador de aplicações Kubernetes onde cria, versiona, compartilha e pública os artefatos. Com ele é possível desenvolver templates dos arquivos YAML e durante a instalação de cada aplicação personalizar os parâmentros com facilidade. Nesse projeto o helm chart foi utilizado nos repositórios das aplicações [Frontend](https://github.com/hebersonaguiar/ditochatfrontend/tree/master/charts/ditochatfrontend) e [Backend](https://github.com/hebersonaguiar/ditochatbackend/tree/master/charts/ditochatbackend), no qual foi emcapsulado todos os arquivos necessários para a implantação das aplicações, como deployment, service, persistente volume, etc, um template padrão de uma aplicação é a seguinte:
+O Helm é um gerenciador de aplicações Kubernetes onde cria, versiona, compartilha e pública os artefatos. Com ele é possível desenvolver templates dos arquivos YAML e durante a instalação de cada aplicação personalizar os parâmentros com facilidade. 
+
+Nesse projeto o helm chart foi utilizado nos repositórios das aplicações [Frontend](https://github.com/hebersonaguiar/ditochatfrontend/tree/master/charts/ditochatfrontend) e [Backend](https://github.com/hebersonaguiar/ditochatbackend/tree/master/charts/ditochatbackend), no qual foi emcapsulado todos os arquivos necessários para a implantação das aplicações, como deployment, service, persistente volume, etc, um template padrão de uma aplicação é a seguinte:
 
 ![helm chart template](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/helm-chart-temp.png)
 
-Dentro do diretório, existe um arquivo chamado `values.yaml`, muito importante dentro de um helm chart, ele é o resposável por informar para os arquivios YAML quais os valores que serão alterados que podem ser por exemplo: quantidade de replicas, portas de acesso, tipo de deploy, tamanho do volume a ser utilizado, etc.
-
-Nesse projeto, o helm chart não foi criado pelo Jenkins X em sua importação, como informado nos tópicos anteriores, porém caso seja necessário basta remover a tag `--no-draft` no momento da instalação e o Jenkins X se encarrega de criar, entrentanto tenha cuidado, os valores padrões criados podem ser diferente do que a aplicação requer. 
+Dentro do diretório de charts, existe um arquivo chamado `values.yaml`, muito importante dentro de um helm chart, ele é o resposável por informar para os arquivios YAML quais os valores que serão alterados que podem ser por exemplo: quantidade de replicas, portas de acesso, tipo de deploy, tamanho do volume a ser utilizado, etc.
 
 
 ## Chart Museum
@@ -330,11 +389,11 @@ Ele possui uma integação muito boa com o Jenkins X, apoiando e facilitando tod
 Skaffold é uma ferramenta de linha de comando que facilita o desenvolvimento contínuo de aplicações no Kubernetes. O Skaffold lida com o fluxo de trabalho para implantar a aplicação. No arquivo skaffold.yaml possuem as variáveis como a do registry, imagem, tag, helm chart, não é necessário nehnhuma alteração, elas são realizadas pelo Jenkins X.
 
 ## Prometheus
-O Prometheus é um kit de ferramentas de monitoramento e alerta de sistemas de código aberto criado originalmente no SoundCloud. Desde a sua criação em 2012, muitas empresas e organizações adotaram o Prometheus, e o projeto possui uma comunidade de desenvolvedores e usuários muito ativa. Agora é um projeto de código aberto independente e mantido independentemente de qualquer empresa. Para enfatizar isso e esclarecer a estrutura de governança do projeto.
+O Prometheus é um kit de ferramentas de monitoramento e alerta de sistemas de código aberto criado originalmente no SoundCloud. Desde a sua criação em 2012, muitas empresas e organizações adotaram o Prometheus, e o projeto possui uma comunidade de desenvolvedores e usuários muito ativa. Agora é um projeto de código aberto independente e mantido independentemente de qualquer empresa.
 
 Iremos utilizar nesse projeto o prometheus para coletar dados do cluster kubernetes bem como as aplicações, para sua instalação iremos utilizar o helm chart, por ser uma aplicação de terceiro e também por está mantida sua versão estável no repositório de charts no github, para sua instalação iremos utilizar o comando abaixo:
 
-* Criação de um namespace para o monitoramento e log 
+* Criação de um namespace para o monitoramento e log (caso não exista)
 
 ```bash
 kubectl create namespace monitoring-log
@@ -356,7 +415,7 @@ kubectl create -f ingress-prometheus.yaml
 ```
 O arquivo de configuação do ingress encontra-se em `conf/k8s/`
 
-Prometheus em execução:
+[Prometheus](http://prometheus.ditochallenge.com/graph) em execução:
 
 ![prometheus](https://github.com/hebersonaguiar/ditodesafiodocs/blob/master/images/prometheus.png)
 
@@ -366,7 +425,7 @@ Grafana é uma suíte de análise e visualização métrica de código aberto. �
 
 Nesse projeto iremos istalar o grafana e configurá-lo para conectar-se ao prometheus e configurar dashboards de métricas do cluster e as aplicações, para isso iremos utilizar o helm chart,  para sua instalação iremos utilizar o comando abaixo:
 
-* Criação de um namespace para o monitoramento e log (caso não exista ou deseja criar em outro)
+* Criação de um namespace para o monitoramento e log (caso não exista)
 
 ```bash
 kubectl create namespace monitoring-log
@@ -405,6 +464,7 @@ Os acessos ao grafana são:
 `Senha: gc5iMZLszrPVwLaJyEGxEf7nNvxL7uq0YGkLQU4p`
 
 Criação de datasource de conexão com prometheus:
+
 A criação da conexão do grafana com o prometheus é em Datasource > Prometheus, ao clicar vai abrir um formulário para preenchimento, segue abaixo as inforações para preenchimento:
 
 `Nome: Prometheus`
@@ -415,7 +475,10 @@ Pronto, é só clicar em testar e salvar.
  
 
 * Importação de dashboards
-Dentro da pasta `conf/grafana/` possui alguns arquivos do tipo `.json` que são os dashboards que iremos utilizar, no qual mostra todas as infomrações do cluter, como, uso de memória, CPU, disco, etc, são métricas do cluster e dos contêiners. A importação de um dashboard é bem simples, no canto superior esquerdo, possui um ícone com o nome home, ao clicar será aberto um modal com algumas informações, entre elas a `Import Dashboard`, ao clicar uma nova página é aberta e algumas informações são solicitadas, que são como que o dashboard vai ser importado, possui três formas, Upload de um arquivo `.json`, o ID de um dashboard público ou colar o conteúdo de um arquivo `.json`, nesse caso, como temos um dashboard customizado iremos colar o contéudo do nosso arquivo `.json`, feito isso basta apenas clicar em load.
+
+Dentro da pasta `conf/grafana/` possui alguns arquivos do tipo `.json` que são os dashboards que iremos utilizar, no qual mostra todas as infomrações do cluster, como, uso de memória, CPU, disco, etc, são métricas do cluster e dos contêiners. 
+
+A importação de um dashboard é bem simples, no canto superior esquerdo, possui um ícone com o nome Home, ao clicar será aberto um modal com algumas informações, entre elas a `Import Dashboard`, ao clicar uma nova página é aberta e algumas informações são solicitadas, que são como que o dashboard vai ser importado nele possui três formas, upload de um arquivo `.json`, o ID de um dashboard público ou colar o conteúdo de um arquivo `.json`, nesse caso, como temos um dashboard customizado iremos colar o contéudo do nosso arquivo `.json`, feito isso basta apenas clicar em load.
 
 Agora para visualizar, basta ir em Home, clicar no dashboard "Kubernetes Cluster - Monitoramento" e visualizar os dados, como mostra a imagem abaixo:
 
@@ -423,7 +486,8 @@ Agora para visualizar, basta ir em Home, clicar no dashboard "Kubernetes Cluster
 
 
 ## ELK
-ELK signifca ELasticsearch, Logstash e Kíbana, um conjunto de aplicações que nos ajudam a ter uma melhor visialização dos logs de ambientes, em nosso projeto iremos configurar essas aplicações para que possamos ter os logs de nosso cluster.
+ELK signifca ELasticsearch, Logstash e Kíbana, um conjunto de aplicações que nos ajudam a ter uma melhor visialização dos logs de ambientes, nesse projeto iremos configurar essas aplicações para que possamos ter os logs de nosso cluster.
+
 Na instalação do ELK não iremos utilizar o Helm Chart, vamos fazer urilizando o próprio Kubernetes, todos as configurações que iremos utilizar aqui estão em `conf/k8s/elk`.
 
 * Elasticssearch
