@@ -44,15 +44,25 @@ Todos as tecnologias informadas acima serão descritas e detalhadas nesse docume
 DNS e acessos desse projeto:
 
 [chartmuseum.jx.108.59.87.39.nip.io](http://chartmuseum.jx.108.59.87.39.nip.io)
+
 [docker-registry.jx.108.59.87.39.nip.io](http://docker-registry.jx.108.59.87.39.nip.io)
+
 [jenkins.jx.108.59.87.39.nip.io](http://jenkins.jx.108.59.87.39.nip.io)
+
 [nexus.jx.108.59.87.39.nip.io](http://nexus.jx.108.59.87.39.nip.io)
+
 [frontend.ditochallenge.com](http://frontend.ditochallenge.com)
+
 [backend.ditochallenge.com](http://backend.ditochallenge.com)
+
 [redis.ditochallenge.com](http://redis.ditochallenge.com)
+
 [grafana.ditochallenge.com](http://grafana.ditochallenge.com)
+
 [kibana.ditochallenge.com](http://kibana.ditochallenge.com)
+
 [prometheus.ditochallenge.com](http://prometheus.ditochallenge.com)
+
 
 Credenciais de acesso:
 
